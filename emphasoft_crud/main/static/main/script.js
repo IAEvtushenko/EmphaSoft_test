@@ -1,0 +1,131 @@
+const cfg = {
+    waveSpeed: 1,
+    wavesToBlend: 4,
+    curvesNum: 40,
+    framesToMove: 24,
+}
+
+class WaveNoise {
+    constructor() {
+        this.wavesSet =[];
+    }
+    addWaves(requiredWaves) {
+        for (let i = 0; i < requiredWaves; ++i) {
+            let randomAngle = Math.random() * 360;
+            this.wavesSet.push(randomAngle);
+        }
+    }
+    getWave() {
+        let blendedWave = 0;
+        for (let e of this.wavesSet) {
+            blendedWave += Math.sin(e / 180 * Math.PI);
+        }
+        return (blendedWave / this.wavesSet.length + 1) / 2;
+    }
+    update() {
+        this.wavesSet.forEach((e, i) => {
+            let r = Math.random() * (i + 1) * cfg.waveSpeed;
+            this.wavesSet[i] = (e + r) % 360;
+        })
+    }
+}
+
+class Animation {
+    constructor() {
+        this.cnv = null;
+        this.ctx = null;
+        this.size = {
+            w: 0,
+            h: 0,
+            cx: 0,
+            cy: 0,
+        }
+        this.controls = [];
+        this.controlsNum = 3;
+        this.frameCounter = 0;
+        this.type4Start = 0.7;
+        this.type4end = 0.4;
+    }
+    init() {
+        this.createCanvas();
+        this.createControls();
+        this.updateAnimation();
+    }
+    createCanvas() {
+        this.cnv = document.createElement('canvas');
+        this.ctx = this.cnv.getContext('2d');
+        this.setCanvasSize();
+        document.body.appendChild(this.cnv);
+        window.addEventListener('resize', () => this.setCanvasSize());
+    }
+    setCanvasSize() {
+        this.size.w = this.cnv.width = innerWidth;
+        this.size.h = this.cnv.height = innerHeight;
+        this.size.cx = this.size.w / 2;
+        this.size.cy = this.size.h / 2;
+    }
+    createControls() {
+        for (let i = 0; i < this.controlsNum + cfg.curvesNum; ++i) {
+            let control = new WaveNoise();
+            control.addWaves(cfg.wavesToBlend);
+            this.controls.push(control);
+        }
+    }
+    updateCurves() {
+        let c = this.controls;
+        let controlX1 = c[0].getWave() * this.size.w;
+        let controlY1 = c[1].getWave() * this.size.h;
+        let controlX2 = c[2].getWave() * this.size.w;
+        for (let i = 0; i < cfg.curvesNum; ++i) {
+            let controlY2 = c[3 + i].getWave();
+            let curveParam = {
+                startX: 0,
+                startY: this.getYPlacementType(this.type4Start, i),
+                controlX1: controlX1,
+                controlY1: controlY1,
+                controlX2: controlX2,
+                controlY2: controlY2  * this.size.h,
+                endX: this.size.w,
+                endY: this.getYPlacementType(this.type4End, i),
+                alpha: controlY2 / 5,
+            }
+            this.drawCurve(curveParam);
+        }
+    }
+    drawCurve({startX, startY, controlX1, controlY1, controlX2, controlY2, endX, endY, alpha}) {
+        this.ctx.strokeStyle = `rgba(0, 255, 0, ${alpha})`;
+        this.ctx.beginPath();
+        this.ctx.moveTo(startX, startY);
+        this.ctx.bezierCurveTo(controlX1, controlY1, controlX2, controlY2, endX, endY);
+        this.ctx.stroke();
+    }
+    updateCanvas() {
+        this.ctx.fillStyle = `rgb(0, 0, 0)`;
+        this.ctx.fillRect(0, 0, this.size.w, this.size.h);
+    }
+    updateControls() {
+        this.controls.forEach(e => e.update());
+    }
+    getYPlacementType(type, i) {
+        if (type > 0.6) {
+            return this.size.h / cfg.curvesNum * i;
+        } else if (type > 0.4) {
+            return this.size.h;
+        } else if (type > 0.2) {
+            return this.size.cy;
+        } else {
+            return 0;
+        }
+    }
+
+    updateAnimation() {
+        this.updateCanvas();
+        this.updateCurves();
+        this.updateControls();
+        window.requestAnimationFrame(() => this.updateAnimation());
+    }
+}
+
+window.onload = () => {
+    new Animation().init()
+}

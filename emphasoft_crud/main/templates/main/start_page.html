@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'main/style.css' %}" />
+    <title>Инструкция по api</title>
+</head>
+<body>
+<div class="user-nav">
+    <a href="#">Log in</a>
+    <a href="#">Sign up</a>
+</div>
+<h3 id="auth-header">Authorization</h3>
+<p id="auth-line-1">POST /api/auth/users/ - С переданными параметрами username и password происходит регистрация нового
+пользователя, если имя пользователя не занято.</p>
+<p id="auth-line-2">POST /api/auth_token/token/login - С переданными параметрами username и password возвращает токен для
+аутентификации.</p>
+<h3 id="api-header">api</h3>
+<p id="api-info">Для каждого запросы необходимо
+указать заголовок Authorization со значением "Token " + токен пользователя</p>
+<p id="api-line-1">GET /api/my_notes/ - Возвращает список записей пользователя</p>
+<p id="api-line-2">POST /api/create/ - По запросу с переданным параметром text добавляет запись в базу</p>
+<p id="api-line-3">GET /api/note/{id} - Возвращает запись для чтения</p>
+<p id="api-line-4">PUT /api/note/{id} - Запись обновляется с новыми значениями параметров</p>
+<p id="api-line-5">PATCH /api/note/{id} - Обновляются значения полей, переданных в запросе</p>
+<p id="api-line-6">DELETE /api/note/{id} - Удаление записи</p>
+<script src="{% static 'main/script.js' %}"></script>
+<script>
+    function printText( el ){
+
+        let letterTimeout = 20
+
+        let text = el.innerHTML
+        let i = 1
+
+        let print__fn = function(){
+
+                if( i <= text.length ){
+                    el.innerHTML = text.substr( 0, i );
+                    setTimeout( arguments.callee, letterTimeout );
+                }
+
+                i++;
+            }
+
+        print__fn()
+    };
+
+    let el = document.getElementById( 'auth-header' );
+    printText( el );
+    el = document.getElementById( 'auth-line-1' );
+    printText( el );
+    el = document.getElementById( 'auth-line-2' );
+    printText( el );
+    el = document.getElementById( 'api-header' );
+    printText( el );
+    el = document.getElementById( 'api-info' );
+    printText( el );
+    el = document.getElementById( 'api-line-1' );
+    printText( el );
+    el = document.getElementById( 'api-line-2' );
+    printText( el );
+    el = document.getElementById( 'api-line-3' );
+    printText( el );
+    el = document.getElementById( 'api-line-4' );
+    printText( el );
+    el = document.getElementById( 'api-line-5' );
+    printText( el );
+    el = document.getElementById( 'api-line-6' );
+    printText( el );
+</script>
+<p id="sign">Made by Igor Evtushenko</p>
+</body>
+</html>
