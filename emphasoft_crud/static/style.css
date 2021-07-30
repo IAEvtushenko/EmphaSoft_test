@@ -1,0 +1,48 @@
+@import url(http://fonts.googleapis.com/earlyaccess/thabit.css);
+
+
+::-webkit-scrollbar {
+        display: none;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background: #000;
+    }
+
+    .user-nav {
+        position: relative;
+        margin-left: 20px;
+    }
+
+    .user-nav a {
+        font-family: 'Thabit', serif;
+        font-weight: 100;
+        color: #00cc00;
+        font-size: 20px;
+        text-decoration: none;
+        padding: 20px 30px;
+    }
+
+    h3, p {
+        position: relative;
+        margin-left: 50px;
+        font-family: 'Thabit', serif;
+        font-weight: 100;
+        color: #00cc00;
+        width: calc(100% - 50px);
+        z-index: 2;
+    }
+
+    h3 {
+        font-size: 48px;
+    }
+
+    canvas {
+        position: fixed;
+        top: 0;
+        display: block;
+        background: #000;
+    }
