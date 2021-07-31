@@ -1,1 +1,0 @@
-web: gunicorn emphasoft_crud.wsgi --log-file=-
