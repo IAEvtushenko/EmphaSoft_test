@@ -1,1 +1,1 @@
-web: gunicorn emphasoft_crud.emphasoft_crud.wsgi:application --log-file=-
+web: gunicorn emphasoft_crud.wsgi
