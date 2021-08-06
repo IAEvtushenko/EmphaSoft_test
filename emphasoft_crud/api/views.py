@@ -91,6 +91,15 @@ class UserListView(generics.ListAPIView):
     authentication_classes = (TokenAuthentication,)
 
 
+#представление для создания нового пользователя
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UpdateUserSerializer
+    queryset = Employee.objects.all()
+
+    def perform_create(self, serializer):
+        pass
+
+
 #представление для просмотра и обновления информации о пользователе, а также его удаления
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     #дефолтный сериалайзер для представления с ограниченными полями, которые можно менять
