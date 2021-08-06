@@ -100,3 +100,7 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated,]
     authentication_classes = (TokenAuthentication,)
+
+    def get(self, request, *args, **kwargs):
+        self.serializer_class = RetrieveUserSerializer
+        return super().get(request, *args, **kwargs)
