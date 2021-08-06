@@ -90,10 +90,14 @@ WSGI_APPLICATION = 'emphasoft_crud.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+'default': {
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'db7p2s49rgpa7v',
+'USER': 'ynisucqnfhchco',
+'PASSWORD': 'e7d0b9f747f46a8da294a0a7cca1202ee46ff1db2e3aa41bfc4b67709551bcba',
+'HOST': 'ec2-54-73-147-133.eu-west-1.compute.amazonaws.com',
+'PORT': '5432'
+}
 }
 
 
