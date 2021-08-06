@@ -33,4 +33,4 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
-        fields = ('username', 'first_name', 'last_name', 'department', 'salary', 'current-project', 'password', 'is_active',)
+        fields = ('username', 'first_name', 'last_name', 'department', 'salary', 'current_project', 'password', 'is_active',)
