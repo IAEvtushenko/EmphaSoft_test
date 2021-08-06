@@ -97,8 +97,7 @@ class UserCreateView(generics.CreateAPIView):
     queryset = Employee.objects.all()
 
     def perform_create(self, serializer):
-        Employee.objects.create_user()
-        pass
+        Employee.objects.create(**serializer)
 
 
 #представление для просмотра и обновления информации о пользователе, а также его удаления
