@@ -8,9 +8,9 @@ User = get_user_model()
 
 
 class Employee(User):
-    department = models.CharField(max_length=255, verbose_name='Отдел', blank=True)
-    salary = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Зарплата', blank=True)
-    current_project = models.CharField(max_length=255, verbose_name='Текущий проект', blank=True)
+    department = models.CharField(max_length=255, verbose_name='Отдел', blank=True, null=True)
+    salary = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Зарплата', blank=True, null=True)
+    current_project = models.CharField(max_length=255, verbose_name='Текущий проект', blank=True, null=True)
 
 
 class Category(models.Model):
