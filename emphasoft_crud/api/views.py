@@ -54,6 +54,9 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsOwner, )
     authentication_classes = (TokenAuthentication, )
 
+    def get_queryset(self):
+        return Note.objects.filter(pk=self.kwargs['pk'])[0]
+
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
@@ -81,3 +84,29 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
     def partial_update(self, request, *args, **kwargs):
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
+
+
+class UserListView(generics.ListAPIView):
+    serializer_class = RetrieveUserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated,]
+    authentication_classes = (TokenAuthentication,)
+
+
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UpdateUserSerializer
+    queryset = User.objects.all()
+
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = UpdateUserSerializer
+    queryset = User.objects.all()
+    permission_classes = [IsAuthenticated,]
+    authentication_classes = (TokenAuthentication,)
+
+    def get_queryset(self):
+        return User.objects.filter(pk=self.kwargs['pk'])[0]
+
+    def get(self, request, *args, **kwargs):
+        self.serializer_class = RetrieveUserSerializer
+        super().get(request, *args, **kwargs)
