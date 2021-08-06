@@ -103,4 +103,3 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get(self, request, *args, **kwargs):
         self.serializer_class = RetrieveUserSerializer
-        super().get(request, *args, **kwargs)
