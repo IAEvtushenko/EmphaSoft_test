@@ -33,7 +33,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password')
-        employee = Employee.objects.create(**validated_data)
+        employee = Employee.objects.create_user(**validated_data)
         employee.set_password(password)
         employee.save()
         return employee
