@@ -3,9 +3,6 @@ from django.contrib.auth import get_user_model
 from .models import *
 
 
-User = get_user_model()
-
-
 #Описание передачи конкретной записи
 
 class NoteDetailSerializer(serializers.ModelSerializer):
@@ -28,12 +25,12 @@ class NoteListSerializer(serializers.ModelSerializer):
 class RetrieveUserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = User
+        model = Employee
         fields = '__all__'
 
 
 class UpdateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'password', 'is_active',)
+        model = Employee
+        fields = ('username', 'first_name', 'last_name', 'department', 'salary', 'current-project', 'password', 'is_active',)

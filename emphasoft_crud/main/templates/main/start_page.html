@@ -20,12 +20,18 @@
 <h3 id="api-header">api</h3>
 <p id="api-info">Для каждого запросы необходимо
 указать заголовок Authorization со значением "Token " + токен пользователя</p>
-<p id="api-line-1">GET /api/my_notes/ - Возвращает список записей пользователя</p>
-<p id="api-line-2">POST /api/create/ - По запросу с переданным параметром text добавляет запись в базу</p>
-<p id="api-line-3">GET /api/note/{id} - Возвращает запись для чтения</p>
-<p id="api-line-4">PUT /api/note/{id} - Запись обновляется с новыми значениями параметров</p>
-<p id="api-line-5">PATCH /api/note/{id} - Обновляются значения полей, переданных в запросе</p>
-<p id="api-line-6">DELETE /api/note/{id} - Удаление записи</p>
+<p id="api-line-user-1">GET /api/users/ - Возвращает список пользователяей</p>
+<p id="api-line-user-2">GET /api/users/{id}/ - Возвращает информацию о конкретном пользователе</p>
+<p id="api-line-user-3">PUT /api/users/{id}/ - Информация о пользователе обновляется с новыми значениями параметров</p>
+<p id="api-line-user-4">PATCH /api/users/{id}/ - Обновляются значения полей, переданных в запросе</p>
+<p id="api-line-user-5">DELETE /api/users/{id}/ - Удаление пользователя</p>
+<p id="api-line-user-6">POST /api/create_user/ - Создание пользователя с переданными значениями полей, необходимо указать по крайней мере username и password</p>
+<p id="api-line-1">GET /api/notes/ - Возвращает список записей пользователя</p>
+<p id="api-line-2">POST /api/create_note/ - По запросу с переданным параметром text добавляет запись в базу</p>
+<p id="api-line-3">GET /api/notes/{id}/ - Возвращает запись для чтения</p>
+<p id="api-line-4">PUT /api/notes/{id}/ - Запись обновляется с новыми значениями параметров</p>
+<p id="api-line-5">PATCH /api/notes/{id}/ - Обновляются значения полей, переданных в запросе</p>
+<p id="api-line-6">DELETE /api/notes/{id}/ - Удаление записи</p>
 <script>
     const cfg = {
         waveSpeed: 1,
@@ -189,6 +195,18 @@
     el = document.getElementById( 'api-header' );
     printText( el );
     el = document.getElementById( 'api-info' );
+    printText( el );
+    el = document.getElementById( 'api-line-user-1' );
+    printText( el );
+    el = document.getElementById( 'api-line-user-2' );
+    printText( el );
+    el = document.getElementById( 'api-line-user-3' );
+    printText( el );
+    el = document.getElementById( 'api-line-user-4' );
+    printText( el );
+    el = document.getElementById( 'api-line-user-5' );
+    printText( el );
+    el = document.getElementById( 'api-line-user-6' );
     printText( el );
     el = document.getElementById( 'api-line-1' );
     printText( el );

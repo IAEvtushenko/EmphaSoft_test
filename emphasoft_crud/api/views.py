@@ -24,8 +24,8 @@ class NoteCreateView(generics.CreateAPIView):
         text = self.request.data['text']
         # Замена названия категории в запросе на id
         category = Category.objects.filter(title=self.request.data['category'])[0].id
-        user = self.request.user
-        data = {'text': text, 'user': user, 'category': category}
+        employee = self.request.user
+        data = {'text': text, 'employee': employee, 'category': category}
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -43,7 +43,7 @@ class NoteListView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Note.objects.filter(user=user)
+        return Note.objects.filter(employee=user)
 
 
 #Представление для передачи конкретной записи пользователя для чтения, редактирования и удаления
@@ -83,24 +83,30 @@ class NoteDetailView(generics.RetrieveUpdateDestroyAPIView):
         return self.update(request, *args, **kwargs)
 
 
+#представление, отвечающее на запрос полным списком пользователей
 class UserListView(generics.ListAPIView):
     serializer_class = RetrieveUserSerializer
-    queryset = User.objects.all()
+    queryset = Employee.objects.all()
     permission_classes = [IsAuthenticated,]
     authentication_classes = (TokenAuthentication,)
 
 
+#представление для создания нового пользователя
 class UserCreateView(generics.CreateAPIView):
     serializer_class = UpdateUserSerializer
-    queryset = User.objects.all()
+    queryset = Employee.objects.all()
+    #potential user can be unauthenticated for using this view
 
 
+#представление для просмотра и обновления информации о пользователе, а также его удаления
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    #дефолтный сериалайзер для представления с ограниченными полями, которые можно менять
     serializer_class = UpdateUserSerializer
-    queryset = User.objects.all()
+    queryset = Employee.objects.all()
     permission_classes = [IsAuthenticated,]
     authentication_classes = (TokenAuthentication,)
 
+    #для чтения представляется сериалайзер со всеми полями
     def get(self, request, *args, **kwargs):
         self.serializer_class = RetrieveUserSerializer
         return super().get(request, *args, **kwargs)
