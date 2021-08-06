@@ -96,9 +96,6 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = UpdateUserSerializer
     queryset = Employee.objects.all()
 
-    def perform_create(self, serializer):
-        Employee.objects.create(**serializer)
-
 
 #представление для просмотра и обновления информации о пользователе, а также его удаления
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
