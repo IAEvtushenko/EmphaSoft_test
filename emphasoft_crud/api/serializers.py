@@ -31,6 +31,13 @@ class RetrieveUserSerializer(serializers.ModelSerializer):
 
 class UpdateUserSerializer(serializers.ModelSerializer):
 
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        employee = Employee(**validated_data)
+        employee.set_password(password)
+        employee.save()
+        return employee
+
     class Meta:
         model = Employee
         fields = ('username', 'first_name', 'last_name', 'department', 'salary', 'current_project', 'password', 'is_active',)
