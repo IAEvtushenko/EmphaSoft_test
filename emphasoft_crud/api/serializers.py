@@ -41,3 +41,4 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ('username', 'first_name', 'last_name', 'department', 'salary', 'current_project', 'password', 'is_active',)
+        extra_kwargs = {'password': {'write_only': True}}
