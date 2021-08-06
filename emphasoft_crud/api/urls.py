@@ -3,9 +3,11 @@ from .views import *
 
 
 urlpatterns = [
-    path('create/', NoteCreateView.as_view()),
-    path('my_notes/', NoteListView.as_view()),
-    path('note/<int:pk>', NoteDetailView.as_view()),
-    path('note/<int:pk>', NoteDetailView.as_view()),
+    path('create_note/', NoteCreateView.as_view()),
+    path('notes/', NoteListView.as_view()),
+    path('notes/<int:pk>', NoteDetailView.as_view()),
+    path('create_user/', UserCreateView.as_view()),
+    path('users/', UserListView.as_view()),
+    path('users/<int:pk>', UserDetailView.as_view()),
 ]
 
