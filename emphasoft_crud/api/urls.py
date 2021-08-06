@@ -3,7 +3,7 @@ from .views import *
 
 
 urlpatterns = [
-    path('create_note/', NoteCreateView.as_view()),
+    path('create/notes/', NoteCreateView.as_view()),
     path('notes/', NoteListView.as_view()),
     path('notes/<int:pk>/', NoteDetailView.as_view()),
     path('create_user/', UserCreateView.as_view()),
